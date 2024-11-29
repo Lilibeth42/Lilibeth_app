@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta el Clima</title>
+    <link rel="icon" type="image/clima" href="{{ url_for('static', filename='images/sol.nube.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container-fluid d-flex flex-row align-items-center vh-100">
+        <!-- Columna izquierda: Formulario -->
+        <div class="col-4 p-5 formulario bg-light shadow rounded">
+            <h2 class="text-center mb-4">🌦️ Busca el clima</h2>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="ciudad" class="form-label">Introduce la ciudad:</label>
+                    <input type="text" id="ciudad" name="ciudad" class="form-control" placeholder="Ingreza la ciudad" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Consultar</button>
+            </form>
+        </div>
+
+        <!-- Columna derecha: Resultados -->
+        <div class="col-8 p-5">
+            {% if weather_data %}
+                {% if weather_data.error %}
+                    <div class="alert alert-danger text-center">
+                        {{ weather_data.error }}
+                    </div>
+                {% else %}
+                    <div class="resultados bg-white shadow p-4 rounded">
+                        <h2 class="text-dark">
+                            <img src="https://openweathermap.org/img/wn/{{ weather_data.icono }}@2x.png" alt="icono_clima">
+                            {{ weather_data.ciudad }}
+                        </h2>
+                        <p><strong>Temperatura:</strong> {{ weather_data.temperatura }}°C</p>
+                        <p><strong>Descripción:</strong> {{ weather_data.descripcion }}</p>
+                        <p><strong>Latitud:</strong> {{ weather_data.latitud }}</p>
+                        <p><strong>Longitud:</strong> {{ weather_data.longitud }}</p>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    
+    <footer class="bg-info text-center text-lg-start fixed-bottom">
+        <div class="text-center p-3" style="background-color:orange">
+            2024 Copyright:
+            <a href="cv.html" target="_blank">Lilibeth Mora Andrade</a>
+</body>
+</html>
+
